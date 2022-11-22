@@ -1,11 +1,10 @@
-
 while True:
     x = input("Please enter your office designation('IT / ACCT / HR'): ")  # string
     y = input("Please enter number of years in service: ")  # string
     try:
         y = int(y)
     except :
-        print ('Non numeric data found.')
+        print ('Non number data')
         continue
     stringConver = x.upper()
     if(stringConver == 'IT'):
@@ -26,3 +25,5 @@ while True:
     else:
         print("designation not found!")
     quit()
+
+
