@@ -20,7 +20,7 @@ while True:
                 fl.write(file)
             finally:
                 fl.close()
-# print("File close")
+        # print("File close")
         elif (x == 2):  # Read file
             try:
                 fl = open("fl.txt", "r")
@@ -30,6 +30,8 @@ while True:
                 str = fl.readlines()
                 for i in str:
                     print(i)
+                    a=i.split()
+                    print(a[0],'\n',a[1],'\n',a[2])
             finally:
                 fl.close()
         # print("File close")
