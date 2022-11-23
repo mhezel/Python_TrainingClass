@@ -1,25 +1,33 @@
 print("***************  RECORD KEEPING APPLICATION  *******************")
+def display_dict():
+    print(dict)
+def add_data(key,value):
+    dict1[key] = value
+    display_dict()
+def del_data(key):
+    dict1.pop(key, None)
+    display_dict()
+
 dict1 = {}
 def main():
-    print('''SELECT OPTIONS:\nA - ADD DATA \nB - DELETE DATA \nC - END ''')
-
+    print('''SELECT OPTIONS:\nA - ADD DATA \nB - DELETE DATA \nC - END  ''')
     while True:
-        try:
+        try:#TRY
             select = input("select: ")
             break
-        except ValueError:
-            print("Invalid input. Please select from the options provided...")
+        except ValueError: #CATCH
+            print("Invalid input.Please select from the options provided...")
+            continue
+
     if select.upper() == "A":#add data
         print('ADD DATA')
         key = input("Enter a Key: ")
         value = input("Enter a Value: ")
-        dict1[key] = value
-        print(dict1)
+        add_data(key,value) #Function call
     elif select.upper() == "B":#delete data
         print('DELETE DATA')
         key_to_delete = input("Enter a Key to delete: ")
-        dict1.pop(key_to_delete, None)
-        print(dict1)
+        del_data(key_to_delete) #Function call
     elif select.upper() == "C":#end
         print('End')
         print("Thank you...")
