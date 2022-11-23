@@ -2,36 +2,85 @@
 #STATE - PROPERTIES
 #BEHAVIOR - METHODS
 
-class Car:
-    counter=0
-    def __init__(self, color, model, manufacturer):
-        self.color = color
-        self.model = model
-        self.manufacturer = manufacturer
-    def display_car(self):
-         print(self.color, self.model, self.manufacturer)
-    def car_count(self):
-        print(Car.counter)
+#class Car:
+    #counter=0
+    #def __init__(self, color, model, manufacturer):
+        #self.color = color
+        #self.model = model
+        #self.manufacturer = manufacturer
+    #def display_car(self):
+         #print(self.color, self.model, self.manufacturer)
+    #def car_count(self):
+        #print(Car.counter)
 
-car = Car("blue", "civic", "honda")
-car.display_car()
+#car = Car("blue", "civic", "honda")
+#car.display_car()
 
-car2 = Car("red", "elantra", "nissan")
-car2.display_car()
+#car2 = Car("red", "elantra", "nissan")
+#car2.display_car()
 
-car3 = Car("black", "montero", "mitsubishi")
-car3.display_car()
+#car3 = Car("black", "montero", "mitsubishi")
+#car3.display_car()
 
-class Dog:
-    def __greet(): #private
-        print('hello')
-    def _greet2(): #protected
-        print('hello2')
-    def greet3():  # public
-            print('hello3')
+#class Dog:
+    #def __greet(): #private
+        #print('hello')
+    #def _greet2(): #protected
+        #print('hello2')
+    #def greet3():  # public
+            #print('hello3')
 
-puppy = Dog
-puppy.greet3()#-->public
-puppy._greet2() #-->protected
-puppy._greet()#-->unable to call outside the class-->private
+#puppy = Dog
+#puppy.greet3()#-->public
+#puppy._greet2() #-->protected
+#puppy._greet()#-->unable to call outside the class-->private
+
+
+###########################INHERITANCE########################################
+#class Mother:
+    #mother_name = ""
+    #def mother(self):
+        #print(self.mother_name)
+#class Father:
+    #father_name = ""
+    #def father(self):
+        #print(self.father_name)
+#class Son(Mother, Father):
+    #def parents(self):
+        #print(self.father_name)
+        #print(self.mother_name)
+
+#mhezel = Son()
+#mhezel.father_name = "Wasif"
+#mhezel.mother_name = "Selma"
+#mhezel.parents()
+
+###########################MULTI-LEVEL INHERITANCE############################class Grandfather:
+    def init(self, grandfathername):
+        self.grandfathername=grandfathername
+
+class Father(Grandfather):
+    def init(self, fathername, grandfathername):
+        self.fathername = fathername
+
+        Grandfather.init(self, grandfathername)
+
+class Son(Father):
+    def init(self, sonname, fathername, grandfathername):
+        self.sonname = sonname
+
+        Father.init(self, fathername, grandfathername)
+
+    def print_name(self):
+        print('Grandfather: ', self.grandfathername)
+        print('Father: ', self.fathername)
+        print('Son: ', self.sonname)
+
+s1: Son = Son("a","b","c")
+print(s1.grandfathername)
+print(s1.fathername)
+print(s1.sonname)
+
+s1.print_name()
+
 
