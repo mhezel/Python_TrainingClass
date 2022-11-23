@@ -55,32 +55,34 @@
 #mhezel.mother_name = "Selma"
 #mhezel.parents()
 
-###########################MULTI-LEVEL INHERITANCE############################class Grandfather:
-    def init(self, grandfathername):
-        self.grandfathername=grandfathername
+###########################MULTI-LEVEL INHERITANCE############################
+class Students:
+    def __init__(self, student_name, math_grade, science_grade, english_grade):
+        self.student_name = student_name
+        self.math_grade = math_grade
+        self.science_grade = science_grade
+        self.english_grade = english_grade
 
-class Father(Grandfather):
-    def init(self, fathername, grandfathername):
-        self.fathername = fathername
+    def compute_average(self):
+        # print(self.mathgrade, self.sciencegrade, self.englishgrade)
+        ave = round((float(self.math_grade) + float(self.science_grade) + float(self.english_grade)) / 3)
+        result = ""
+        if ave >= 80:
+            result = "(Passed)"
+        else:
+            result = "(Failed)"
+        return str(ave) + result
 
-        Grandfather.init(self, grandfathername)
+    def displayAll(self):
+        print("****STUDENT GRADES RESULT****")
+        print('Name: ', self.student_name)
+        print('Math: ', self.math_grade)
+        print('Science: ', self.science_grade)
+        print('English: ', self.english_grade)
+        print('Average: ', self.compute_average())
 
-class Son(Father):
-    def init(self, sonname, fathername, grandfathername):
-        self.sonname = sonname
 
-        Father.init(self, fathername, grandfathername)
-
-    def print_name(self):
-        print('Grandfather: ', self.grandfathername)
-        print('Father: ', self.fathername)
-        print('Son: ', self.sonname)
-
-s1: Son = Son("a","b","c")
-print(s1.grandfathername)
-print(s1.fathername)
-print(s1.sonname)
-
-s1.print_name()
-
+mhezel = Students(input("Name: "),input("Math: "),input("Science: "),input("English: "))
+mhezel.compute_average()
+mhezel.displayAll()
 
