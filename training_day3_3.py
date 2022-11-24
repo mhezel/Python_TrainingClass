@@ -81,7 +81,6 @@ class Students:
         print('English: ', self.english_grade)
         print('Average: ', self.compute_average())
 
-
 mhezel = Students(input("Name: "),input("Math: "),input("Science: "),input("English: "))
 mhezel.compute_average()
 mhezel.displayAll()
