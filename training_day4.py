@@ -1,110 +1,71 @@
 import pymysql
-def Database():
-    global conn, cursor
-    conn = pymysql.connect(host='localhost',
-                           user='root',
-                           password='root',
-                           db='test')
-    cursor = conn.cursor()
+def conn():
+    con=pymysql.connect(host="localhost",user="root",password="root",db="py_db")
+    return con
+def insert(lname,fname,address,con_):
+    sql="INSERT INTO tbl_profile(lname,fname,address) VALUES('%s','%s','%s')" % (lname,fname,address)
+    #print(sql)
+    cursors = con_.cursor()
+    cursors.execute(sql)
+    con_.commit()
+def query(sql,con_):
+    cursors=con_.cursor()
+    cursors.execute(sql)
+    data=cursors.fetchall()
+    return data
+def add_profile():
+    lname_ = input("Please enter Lastname:")
+    fname_ = input("Please enter Firstname:")
+    address_ = input("Please enter Address:")
+    insert(lname_, fname_, address_, db)
+    print("Record Added!")
+def delete_profile(id,con_):
+    sql="delete from tbl_profile where id='%i'" % int(id)
+    cursors = con_.cursor()
+    cursors.execute(sql)
+    con_.commit()
+    print("Record Deleted!")
+def update_profile(id,lname,fname,address,con_):
+    sql = "update tbl_profile set lname='%s',fname='%s',address='%s' where id='%i'" % (lname,fname,address,int(id))
+    cursors = con_.cursor()
+    cursors.execute(sql)
+    con_.commit()
+    print("Record Updated!")
+def show_profile(con_):
+    sql_msg = "SELECT * FROM tbl_profile"
+    rslt = query(sql_msg, con_)
+    for row in rslt:
+        print(row)
+        #for i in row:
+         #print(i)
 
-def insertData():
-    Database()
-    cursor.execute(
-        "INSERT INTO `member` (firstname, "
-        "lastname, "
-        "gender, "
-        "address, "
-        "username, password, employee_type) VALUES(%s, %s, %s, %s, %s, %s, %s)",
-        (str(input('Input First Name: ')),
-         str(input('Input Lastname: ')),
-         str(input('Input Gender: ')),
-         str(input('Input Address: ')),
-         str(input('Input Username: ')),
-         str(input('Input Password: ')),
-         str(input('Input Employee Type: '))
-         ))
+db=conn()
+next_transaction="Y"
+while next_transaction.upper()=="Y":
+    next_transaction=input("***CRUD-APP***  {press Y/y to continue}  ")
+    if next_transaction.upper()=="Y":
+        selection=input("Select Options: "
+                     "[a] AddProfile "
+                     "[d] Delete Record "
+                     "[s] Show Record "
+                     "[u] Update Profile ")
 
-    cursor.execute("SELECT * FROM `member`")
-    fetch = cursor.fetchall()
-    for data in fetch:
-        print(data)
-    conn.commit()
+    if selection.upper()=="A":
+        add_profile()
+    elif selection.upper()=="D":
+        id=input("Please enter ID No.:")
+        delete_profile(id,db)
+    elif selection.upper()=="S":
+        show_profile(db)
+    elif selection.upper() == "U":
 
-    cursor.close()
-    conn.close()
-    print('Record Created!')
+        id=input("Please enter ID No.: ")
+        lname_ = input("Please enter Lastname: ")
+        fname_ = input("Please enter Firstname: ")
+        address_ = input("Please enter Address: ")
+        update_profile(id,lname_,fname_,address_,db)
 
-def deleteData():
-    Database()
-    cursor.execute("DELETE FROM `member` WHERE `mem_id` = %s" % str(input('Input ID of record you want to delete: ')))
-
-    cursor.execute("SELECT * FROM `member`")
-    fetch = cursor.fetchall()
-    for data in fetch:
-        print(data)
-    conn.commit()
-    cursor.close()
-    conn.close()
-    print('Record Deleted!')
-
-
-def viewData():
-    Database()
-    cursor.execute("SELECT * FROM `member`")
-    fetch = cursor.fetchall()
-    countRecord = 0
-    for data in fetch:
-        countRecord +=1
-        print(data)
-    conn.commit()
-    cursor.close()
-    conn.close()
-    print(str(countRecord) + ' Record(s) Found!')
-
-print("PYTHON AND MYSQL")
-def run_app():
-    print("============================================")
-    while True:
-        try:
-            #ask user for command A-View Record, B-Insert, C-Delete
-            op = input('OPTIONS: \nA - VIEW RECORDS \nB - INSERT RECORD \nC - DELETE RECORD \n'
-                       'Input (A/B/C): ')
-            print("============================================")
-            if op.upper() == 'A':
-                print("VIEW RECORDS")
-                viewData()
-            elif op.upper() == 'B':
-                print("INSERT RECORD")
-                insertData()
-            elif op.upper() == 'C':
-                print("DELETE RECORD")
-                deleteData()
-            else:
-                print("Invalid Inputted Option. Please try again...")
-                print("============================================\n")
-
-            break
-        except ValueError:
-            print("Invalid input. Please try again...")
-
-    #input in list
-    # word_list.append(word)
-    while True:
-        try_again = input('''
-        Would you like to try again?
-        Please type Y for YES or N for No.
-        ''')
-        print("============================================")
-        if try_again.upper() == 'Y':
-            run_app()
-            break
-        elif try_again.upper() == 'N':
-
-            print("Thank you, Goodbye...")
-            import sys
-            sys.exit()
-        else:
-            print("Invalid Input. Please try again...")
-            print("============================================\n")
-
-run_app()
+    elif annext_transactions.upper()=="N":
+        print("Thanks!...")
+    else:
+        next_transaction="Y"
