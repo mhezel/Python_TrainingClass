@@ -72,21 +72,24 @@ import math
 #s = "%s is one of %i shiny metals" %(b,a)
 #print(s)
 
-import math
-def displayGrades():
-    getAverage()
+#import math
+#def displayGrades():
+    #getAverage()
 
-def getAverage():
-    average = round((int(math) + int(science) + int(english))/3, 1)
-    if average >= 80:
-        print("You Passed " + '' + str(average))
-    else:
-        print("You failed " + '' + str(average))
+#def getAverage():
+    #average = round((int(math) + int(science) + int(english))/3, 1)
+    #if average >= 80:
+        #print("You Passed " + '' + str(average))
+    #else:
+        #print("You failed " + '' + str(average))
 
-print("****** Average Computing App ******")
-name = input("Name: ")
-math = input("Math: ")
-science = input("Science: ")
-english = input("English: ")
-displayGrades()
+#print("****** Average Computing App ******")
+#name = input("Name: ")
+#math = input("Math: ")
+#science = input("Science: ")
+#english = input("English: ")
+#displayGrades()
 
+tup1 = ('physics', 'chemistry', 1997,2000)
+for value in range(0,3):
+    print(f"{value}:{tup1}")
